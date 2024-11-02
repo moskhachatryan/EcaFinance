@@ -1,0 +1,133 @@
+﻿@page "/"
+@using System.Net.Http.Headers
+@inject HttpClient Http
+
+<PageTitle>Գլխավոր</PageTitle>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="~/css/app.css"/>
+
+<div class="container">
+            <div class="search">
+                <form action="">
+                    <input type="text" id="searchInput" placeholder="Search.." name="search">
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        @{
+                            int index = 1;
+                        }
+                        @if(youthMembers == null) {
+                          <div>Loading... </div>
+                        } else {
+                            foreach (var item in youthMembers.OrderByDescending(a => a.TotalScore))
+                            {
+                                <div class="col-sm-3 col-lg-3 mb-4 userCard">
+                                    <div class="candidate-list candidate-grid">
+                                        <div class="candidate-list-image">
+
+                                            @if(!string.IsNullOrEmpty(item.Img))
+                                        {
+                                            <img class="img-fluid" src="https://ecavanadzor.somee.com/image/YouthMembers/@item.Img" alt="@item.FullName">
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid" src="https://ecavanadzor.somee.com/image/YouthMembers/NoImage.jpg" alt="">
+                                        }
+                                        </div>
+                                        <div class="candidate-list-details">
+                                            <div class="candidate-list-info">
+                                                <div class="candidate-list-title">
+                                                    <h5>@item.FullName</h5>
+                                                </div>
+                                                <div class="candidate-list-option">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div>
+                                                                <i class="fas fa-gamepad pr-1" style="padding-right: 5px; color: #ff0000c4; margin-bottom: 10px;"></i>Խաղ։ @item.GameScore
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div><i class="fas fa-brain pr-1" style="padding-right: 5px; color: #ab5a68; margin-bottom: 10px;"></i>Ինտելեկտուալ։ @item.IntelectualScore</div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div><i class="fas fa-user-times pr-1" style="padding-right: 5px; color: seagreen; margin-bottom: 10px;"></i>Հաճախելիություն։ @item.AbsenceScore</div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div><i class="fas fa-question pr-1" style="padding-right: 5px; color: darkblue; margin-bottom: 10px;"></i>Հարցումներ։ @item.ChatScore</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="candidate-list-favourite-time">
+                                                <a class="candidate-list-favourite order-2" href="#">@index</a>
+                                                <span class="candidate-list-time order-1" style="font-size: 17px;"><i class="far fa-user-astronaut pr-1"></i><b>Ընդհանուր: @item.TotalScore</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @{
+                                        index++;
+                                    }
+
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+
+</div>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const userCards = document.querySelectorAll('.userCard');
+
+    // Add an event listener for the input
+    searchInput.addEventListener('input', function () {
+        const filterText = searchInput.value.toLowerCase();
+
+        // Loop through the user cards
+        userCards.forEach(function (card) {
+            const userName = card.innerHTML.toLowerCase();
+
+            // Check if the name matches the filter text
+            if (userName.includes(filterText)) {
+                card.style.display = ""; // Show the card
+            } else {
+                card.style.display = "none"; // Hide the card
+            }
+        });
+    });
+</script>
+
+@code
+{
+    public List<YouthMembersViewModel> youthMembers { get; set; }
+    private int count { get; set; } 
+
+    public class YouthMembersViewModel
+    {
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public string Img { get; set; }
+        public int GameScore { get; set; }
+        public int IntelectualScore { get; set; }
+        public int AbsenceScore { get; set; }
+        public int ChatScore { get; set; }
+        public int LastWeek { get; set; }
+        public int TotalScore { get; set; }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        youthMembers = await Http.GetFromJsonAsync<List<YouthMembersViewModel>>("/api/youth/members");
+    }
+
+  
+
+} 

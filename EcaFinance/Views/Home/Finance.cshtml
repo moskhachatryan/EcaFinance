@@ -1,0 +1,39 @@
+﻿@model IPagedList<OrderViewModel>
+
+<div class="row mb-3 mt-3">
+    <div class="col-2">
+        <input id="search" class="form-control search" placeholder="Համար..." value="@ViewBag.Searh"/>
+    </div>
+    <div class="col-2">
+        <select class="type filter form-control" asp-items="Html.GetEnumSelectList<OrderType>()">
+            <option selected="selected" value="">Ընտրել ձևը</option>
+        </select>
+    </div>
+    <div class="col-2">
+        <input class="startDate filter form-control" type="date" value="@ViewBag.StartDate"/>
+    </div>
+    <div class="col-2">
+        <input class="endDate filter form-control" type="date" value="@ViewBag.EndDate" />
+    </div>
+    <div class="col-2">
+        <select class="category filter form-control" asp-items="@(new SelectList(ViewBag.Categories, "Value", "Text"))">
+            <option selected="selected" value="">Ընտրել նպատակը</option>
+        </select>
+    </div>
+    <div class="col-2">
+        <select class="service filter form-control" asp-items="@(new SelectList(ViewBag.ChurchServices, "Value", "Text"))">
+            <option selected="selected" value="">Ընտրել ծառայությունը</option>
+
+        </select>
+    </div>
+</div>
+ 
+<div id="order-list">
+    <partial name="_OrderList" />
+</div>
+
+@section Scripts {
+    <script>
+        var filterUrl = '@Url.Action("Finance", "Home")';
+    </script>
+}

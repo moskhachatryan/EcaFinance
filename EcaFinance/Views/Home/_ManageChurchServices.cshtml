@@ -1,0 +1,26 @@
+﻿@model ChurchServiceViewModel
+@{
+    var text = ((Model != null) ? "Փոփոխել" : "Ավելացնել");
+}
+
+<div class="modal-content">
+    <form asp-action="ManageChurchService" asp-area="" asp-controller="Home" enctype="multipart/form-data">
+
+        <input hidden value="@((Model != null) ? Model.Id : 0)" />
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">@text</h5>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="Name">Անուն</label>
+                    <input asp-for="Name" class="form-control" required />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Փակել</button>
+            <button type="submit" class="btn btn-primary">Պահպանել</button>
+        </div>
+    </form>
+</div>

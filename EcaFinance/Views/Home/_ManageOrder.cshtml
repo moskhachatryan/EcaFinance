@@ -1,0 +1,68 @@
+﻿@model OrderViewModel
+@{
+    var text = ((Model != null) ? "Փոփոխել" : "Ավելացնել");
+}
+
+<div class="modal-content">
+    <form asp-action="ManageOrder" asp-area="" asp-controller="Home" enctype="multipart/form-data">
+
+        <input hidden value="@((Model != null) ? Model.Id : 0)" />
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">@text</h5>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="OrderNumber">Համար</label>
+                    <input asp-for="OrderNumber" class="form-control" required />
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="OrderDate">Ամսաթիվ</label>
+                    <input asp-for="OrderDate" class="form-control" type="date" required />
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="CategoryId">Վճարման նպատակ</label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories, "Value", "Text"))"></select>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="ChurchServiceId">Ծառայություն</label>
+                    <select asp-for="ChurchServiceId" class="form-control" asp-items="@(new SelectList(ViewBag.ChurchServices, "Value", "Text"))"></select>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="Price">Գումար</label>
+                    <input asp-for="Price" class="form-control" required />
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="Type">Ձև</label>
+                    <select asp-for="Type" asp-items="Html.GetEnumSelectList<OrderType>()" class="form-control" required></select>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="Description">Նկարագրություն</label>
+                    <input asp-for="Description" class="form-control" />
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="Sort">Արխիվացում</label>
+                    <input asp-for="Sort" value="2" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Փակել</button>
+            <button type="submit" class="btn btn-primary">Պահպանել</button>
+        </div>
+    </form>
+</div>

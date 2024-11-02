@@ -1,0 +1,54 @@
+﻿@model BalanceLimitViewModel
+@{
+    var text = ((Model != null) ? "Փոփոխել" : "Ավելացնել");
+}
+
+<div class="modal-content">
+    <form asp-action="ManageBalanceLimit" asp-area="" asp-controller="Home" enctype="multipart/form-data">
+
+        <input hidden value="@((Model != null) ? Model.Id : 0)" />
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">@text</h5>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <div class="input-group mb-3">
+                    <div class="col-12">
+                        <label asp-for="CategoryId">Վճարման նպատակ</label>
+                        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories, "Value", "Text"))" required>
+                            <option selected="selected" value="">Ընտրել նպատակը</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="col-12">
+                        <label asp-for="ChurchServiceId">Ծառայություն</label>
+                        <select asp-for="ChurchServiceId" class="form-control" asp-items="@(new SelectList(ViewBag.ChurchServices, "Value", "Text"))">
+                            <option selected="selected" value="">Ընտրել ծառայությունը</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Limit">Սահմանաչափ</label>
+                    <input asp-for="Limit" class="form-control" required />
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="StartDate">Ամսաթիվ</label>
+                    <input asp-for="StartDate" class="form-control" type="date" required />
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="col-12">
+                    <label asp-for="EndDate">Ամսաթիվ</label>
+                    <input asp-for="EndDate" class="form-control" type="date" required />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Փակել</button>
+            <button type="submit" class="btn btn-primary">Պահպանել</button>
+        </div>
+    </form>
+</div>

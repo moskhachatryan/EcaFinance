@@ -1,0 +1,6 @@
+@EcaFinanceAPI_HostAddress = http://localhost:5182
+
+GET {{EcaFinanceAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

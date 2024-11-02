@@ -1,0 +1,42 @@
+﻿@model RegisterViewModel
+@{
+    Layout = "_LoginLayout";
+}
+
+<form method="post" asp-area="Admin" asp-controller="Account" asp-action="Register">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <label asp-for="FirstName" class="sr-only"></label>
+        <input asp-for="FirstName" class="form-control mb-3" placeholder="First name" required autofocus />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+
+    <div>
+        <label asp-for="LastName" class="sr-only"></label>
+        <input asp-for="LastName" class="form-control mb-3" placeholder="Last name" required />
+        <span asp-validation-for="LastName"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email" class="sr-only"></label>
+        <input asp-for="Email" class="form-control mb-3" placeholder="Email" required />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password" class="sr-only"></label>
+        <input asp-for="Password" class="form-control mb-3" placeholder="Password" required />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="ConfirmPassword" class="sr-only"></label>
+        <input asp-for="ConfirmPassword" class="form-control mb-3" placeholder="Confirm Password" required />
+        <span asp-validation-for="ConfirmPassword"></span>
+    </div>
+
+    <div class="pt-3">
+        <input class="btn btn-outline-dark  btn-block " type="submit" value="Register" />
+    </div>
+
+</form>

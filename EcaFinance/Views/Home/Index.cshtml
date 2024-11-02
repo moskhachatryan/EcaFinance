@@ -1,0 +1,50 @@
+﻿@model IPagedList<BalanceLimitViewModel>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Սկիզբ</th>
+            <th>Ավարտ</th>
+            <th>Ծառայություն</th>
+            <th>Նպատակ</th>
+            <th>Սահմանաչափ</th>
+            <th>Ծախսվել է</th>
+            <th>Տոկոս</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StartDate.ToString("dd.MM.yyyy")</td>
+                <td>@item.EndDate.ToString("dd.MM.yyyy")</td>
+                <td>@item.ChurchServiceId</td>
+                <td>@item.CategoryName</td>
+                <td>@item.Limit.ToString("#,#")</td>
+                <td>@item.SpentMoney.ToString("#,#")</td>
+                <td>
+                    <div class="progress" style="height: 30px; width: 240px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated @item.PercentBgCss" role="progressbar" style="width: @item.Percent%" aria-valuenow="@item.Percent" aria-valuemin="0" aria-valuemax="100">@item.Percent%</div>
+                    </div>
+                </td>
+                <td>
+                    <a asp-controller="Home" asp-action="ManageBalanceLimit" asp-route-id="@item.Id" data-bs-toggle="modal" data-bs-target="#dialogDiv" class="btn btn-success btn-sm open-modal">Փոփոխել</a>
+                    <a asp-controller="Home" asp-action="DeleteBalanceLimit" asp-route-id="@item.Id" data-bs-toggle="modal" data-bs-target="#dialogDiv" class="btn btn-danger btn-sm open-modal">Ջնջել</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Home" asp-action="ManageBalanceLimit" data-bs-toggle="modal" data-bs-target="#dialogDiv" class="btn btn-success open-modal mb-3">Ավելացնել</a>
+@if (Model.PageCount > 1)
+{
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }),
+                    new PagedListRenderOptions
+            {
+                UlElementClasses = new string[] { "pagination" },
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" }
+            })
+}

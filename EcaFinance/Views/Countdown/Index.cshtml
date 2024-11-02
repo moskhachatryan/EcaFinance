@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "_CountdownLayout";
+}
+<div class="preloader">
+    <div class="loading">
+        <h2>
+            Loading...
+        </h2>
+        <span class="progress"></span>
+    </div>
+</div>
+<button class="btn" onclick="toggleFullScreen(document.body)" style="background-color: #443f3a;">X</button>
+
+<div class="wrapper">
+
+    <div class="container-fluid">
+        <div class="row" style="height: 100vh;">
+            <div class="col-6" style="background-image: url(/image/background.png); background-size: contain;">
+                <div class="hero" style="margin-top: 85px !important;">
+                    <h1 id="countdown">
+                    </h1>
+                </div>
+            </div>
+            <div class="col-6">
+                <div id="demo" class="carousel slide" data-bs-ride="carousel" data-bs-wrap="true" data-bs-interval="10000" data-bs-touch="true">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="4"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="5"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="6"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="7"></button>
+                    </div>
+
+                    <!-- The slideshow/carousel -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="~/image/slider/1.png" alt="QR" class="d-block" style="height:100vh;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="~/image/slider/2.png" alt="Phone" class="d-block" style="height:100vh;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="~/image/slider/3.png" alt="Pray" class="d-block" style="height:100vh;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="~/image/slider/4.png" alt="Pray" class="d-block" style="height:100vh; ">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="~/image/slider/5.png" alt="Pray" class="d-block" style="height:100vh;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="~/image/slider/6.png" alt="Pray" class="d-block" style="height:100vh;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="~/image/slider/7.png" alt="Pray" class="d-block" style="height:100vh;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="~/image/slider/8.png" alt="Pray" class="d-block" style="height:100vh;">
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls/icons -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,72 @@
+﻿@model IPagedList<OrderViewModel>
+
+<div class="row">
+    <div class="col-4">
+        <span>Մուտք։ <b> @ViewBag.DepositAmount</b></span> <br />
+    </div>
+    <div class="col-4">
+        <span>Ելք։ <b> @ViewBag.DebitAmount</b></span>
+    </div>
+    <div class="col-4">
+        <a asp-controller="Home" asp-action="ManageOrder" data-bs-toggle="modal" data-bs-target="#dialogDiv" class="btn btn-success open-modal  mb-3">Ավելացնել</a>
+    </div>
+</div>
+<div class="table-responsive">
+    @if (Model.PageCount > 1)
+    {
+        @Html.PagedListPager(Model, page => Url.Action("Finance", new { page = page, type = ViewBag.Type }),
+                new PagedListRenderOptions
+        {
+            UlElementClasses = new string[] { "pagination" },
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" }
+        })
+
+    }
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Համար</th>
+            <th scope="col">Ամսաթիվ</th>
+            <th scope="col">Գումար</th>
+            <th scope="col">Ձև</th>
+            <th scope="col">Վճարման նպատակ</th>
+            <th scope="col">Ծառայություն</th>
+            <th scope="col">Նկարագրություն</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td scope="row">@item.OrderNumber</td>
+                <td>@item.OrderDate.ToString("dd.MM.yyyy")</td>
+                <td class="@item.DisplayPriceCSS">@(item.Price.ToString("#,#"))</td>
+                <td>@item.Type.GetDisplayName()</td>
+                <td>@item.Category.Name</td>
+                <td>@item.ChurchService.Name</td>
+                <td>@item.Description</td>
+                <td>
+                    <a asp-controller="Home" asp-action="ManageOrder" asp-route-id="@item.Id" data-bs-toggle="modal" data-bs-target="#dialogDiv" class="btn btn-success btn-sm open-modal">Փոփոխել</a>
+                    <a asp-controller="Home" asp-action="DeleteOrder" asp-route-id="@item.Id" data-bs-toggle="modal" data-bs-target="#dialogDiv" class="btn btn-danger btn-sm open-modal">Ջնջել</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    @if (Model.PageCount > 1)
+    {
+        @Html.PagedListPager(Model, page => Url.Action("Finance", new { page = page, type = ViewBag.Type }),
+                new PagedListRenderOptions
+    {
+        UlElementClasses = new string[] { "pagination" },
+        LiElementClasses = new string[] { "page-item" },
+        PageClasses = new string[] { "page-link" }
+    })
+
+    }
+
+</div>
+
