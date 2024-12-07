@@ -5,10 +5,15 @@
 <PageTitle>Գլխավոր</PageTitle>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-<link rel="stylesheet" href="~/css/app.css"/>
+<link rel="stylesheet" href="css/app.css"/>
 
 <div class="container">
-            <div class="search">
+    @if (youthMembers == null)
+    {
+        <div style="text-align: center; height: 100vh; width: 100%; align-content: center;"> <span>Loading...</span> </div>
+    } else
+    {
+        <div class="search">
                 <form action="">
                     <input type="text" id="searchInput" placeholder="Search.." name="search">
                 </form>
@@ -19,10 +24,7 @@
                         @{
                             int index = 1;
                         }
-                        @if(youthMembers == null) {
-                          <div>Loading... </div>
-                        } else {
-                            foreach (var item in youthMembers.OrderByDescending(a => a.TotalScore))
+                            @foreach (var item in youthMembers.OrderByDescending(a => a.TotalScore))
                             {
                                 <div class="col-sm-3 col-lg-3 mb-4 userCard">
                                     <div class="candidate-list candidate-grid">
@@ -73,12 +75,12 @@
 
                                 </div>
                             }
-                        }
 
                     </div>
                 </div>
             </div>
 
+    }
 
 </div>
 
